@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
 
         about_action = QAction("About", self)
         help_menu_item.addAction(about_action)
+        about_action.triggered.connect(self.about)
 
         search_action = QAction(QIcon("icons/search.png"), "Search", self)
         edit_menu_item.addAction(search_action)
@@ -79,16 +80,37 @@ class MainWindow(QMainWindow):
         dialog = InsertDialog()
         dialog.exec()
 
+
     def search(self):
         dialog = SearchDialog()
         dialog.exec()
 
+
     def edit(self):
         dialog = EditDialog()
         dialog.exec()
+
     def delete(self):
         dialog = DeleteDialog()
         dialog.exec()
+
+
+    def about(self):
+        dialog = AboutDialog()
+        dialog.exec()
+
+
+class AboutDialog(QMessageBox):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("About")
+        content = """
+        This is a template to create a student management system. Feel free to modify.
+        """
+        self.setText(content)
+
+
+
 
 class EditDialog(QDialog):
     def __init__(self):
@@ -160,7 +182,6 @@ class EditDialog(QDialog):
         confirmation_widget.exec()
 
 
-
 class DeleteDialog(QDialog):
     def __init__(self):
         super().__init__()
@@ -198,11 +219,6 @@ class DeleteDialog(QDialog):
         confirmation_widget.setWindowTitle("Success")
         confirmation_widget.setText("The record was deleted successfully")
         confirmation_widget.exec()
-
-
-
-
-
 
 
 class InsertDialog(QDialog):
